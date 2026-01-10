@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
 import { I18nService, Language } from '../../services/i18n.service';
+import { AwsApiService } from '../../services/aws.service';
 
 @Component({
   selector: 'app-help',
@@ -124,9 +125,12 @@ import { I18nService, Language } from '../../services/i18n.service';
           </div>
         </section>
 
-        <!-- Back to Login -->
+        <!-- Back Button -->
         <div class="help-footer">
-          <a routerLink="/login" class="btn btn-primary">
+          <a *ngIf="isAuthenticated" routerLink="/dashboard" class="btn btn-primary">
+            {{ t('help.backToDashboard') }}
+          </a>
+          <a *ngIf="!isAuthenticated" routerLink="/login" class="btn btn-primary">
             {{ t('help.backToLogin') }}
           </a>
         </div>
@@ -383,6 +387,7 @@ import { I18nService, Language } from '../../services/i18n.service';
 export class HelpComponent implements OnInit {
   isDark = true;
   currentLang: Language = 'en';
+  isAuthenticated = false;
 
   iamPolicy = `{
   "Version": "2012-10-17",
@@ -413,7 +418,8 @@ export class HelpComponent implements OnInit {
 
   constructor(
     private themeService: ThemeService,
-    private i18nService: I18nService
+    private i18nService: I18nService,
+    private awsService: AwsApiService
   ) {}
 
   ngOnInit(): void {
@@ -424,6 +430,8 @@ export class HelpComponent implements OnInit {
     this.i18nService.lang$.subscribe(lang => {
       this.currentLang = lang;
     });
+
+    this.isAuthenticated = this.awsService.isAuthenticated();
   }
 
   toggleTheme(): void {

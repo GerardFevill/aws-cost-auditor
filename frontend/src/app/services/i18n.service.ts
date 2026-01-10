@@ -1073,6 +1073,7 @@ const TRANSLATIONS: Record<Language, Translations> = {
       title: 'Help Guide',
       subtitle: 'Learn how to use AWS Cost Auditor to optimize your cloud spending',
       backToLogin: 'Back to Login',
+      backToDashboard: 'Back to Dashboard',
       gettingStarted: {
         title: 'Getting Started',
         step1Title: '1. Connect Your AWS Account',
@@ -2609,6 +2610,7 @@ const TRANSLATIONS: Record<Language, Translations> = {
       title: "Guide d'aide",
       subtitle: 'Apprenez à utiliser AWS Cost Auditor pour optimiser vos dépenses cloud',
       backToLogin: 'Retour à la connexion',
+      backToDashboard: 'Retour au tableau de bord',
       gettingStarted: {
         title: 'Premiers pas',
         step1Title: '1. Connectez votre compte AWS',
