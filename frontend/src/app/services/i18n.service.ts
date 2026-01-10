@@ -1736,7 +1736,7 @@ const TRANSLATIONS: Record<Language, Translations> = {
       'customer-engagement': 'Engagement client',
       'costexplorer': 'Explorateur de coûts',
       'budgets': 'Budgets AWS',
-      'savingsplans': 'Plans d'économies',
+      'savingsplans': "Plans d'économies",
       'reservedinstances': 'Instances réservées',
       'costandusagereports': 'Rapports de coûts',
       'billingconductor': 'Conducteur de facturation'
