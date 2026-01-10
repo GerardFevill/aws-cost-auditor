@@ -393,23 +393,306 @@ export class HelpComponent implements OnInit {
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Sid": "CostManagement",
       "Effect": "Allow",
       "Action": [
-        "ce:Get*",
-        "ce:Describe*",
-        "ce:List*",
+        "ce:*",
+        "budgets:View*",
+        "budgets:Describe*",
+        "cur:Describe*",
+        "pricing:*",
+        "savingsplans:Describe*",
+        "savingsplans:List*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Compute",
+      "Effect": "Allow",
+      "Action": [
         "ec2:Describe*",
-        "s3:List*",
-        "s3:GetBucket*",
-        "rds:Describe*",
         "lambda:List*",
         "lambda:Get*",
+        "ecs:Describe*",
+        "ecs:List*",
+        "eks:Describe*",
+        "eks:List*",
+        "lightsail:Get*",
+        "batch:Describe*",
+        "batch:List*",
+        "autoscaling:Describe*",
+        "elasticbeanstalk:Describe*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Storage",
+      "Effect": "Allow",
+      "Action": [
+        "s3:List*",
+        "s3:GetBucket*",
+        "s3:GetLifecycle*",
+        "s3:GetEncryption*",
+        "efs:Describe*",
+        "fsx:Describe*",
+        "backup:List*",
+        "backup:Describe*",
+        "glacier:List*",
+        "glacier:Describe*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Database",
+      "Effect": "Allow",
+      "Action": [
+        "rds:Describe*",
+        "rds:List*",
+        "dynamodb:Describe*",
+        "dynamodb:List*",
+        "elasticache:Describe*",
+        "elasticache:List*",
+        "redshift:Describe*",
+        "docdb-elastic:List*",
+        "neptune-db:*",
+        "dax:Describe*",
+        "memorydb:Describe*",
+        "timestream:Describe*",
+        "timestream:List*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Network",
+      "Effect": "Allow",
+      "Action": [
+        "elasticloadbalancing:Describe*",
+        "cloudfront:List*",
+        "cloudfront:Get*",
+        "route53:List*",
+        "route53:Get*",
+        "apigateway:GET",
+        "globalaccelerator:Describe*",
+        "globalaccelerator:List*",
+        "directconnect:Describe*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Security",
+      "Effect": "Allow",
+      "Action": [
         "iam:List*",
         "iam:Get*",
+        "iam:GenerateCredentialReport",
+        "kms:List*",
+        "kms:Describe*",
+        "secretsmanager:List*",
+        "secretsmanager:Describe*",
+        "acm:List*",
+        "acm:Describe*",
+        "waf:List*",
+        "wafv2:List*",
+        "wafv2:Get*",
+        "guardduty:List*",
+        "guardduty:Get*",
+        "inspector2:List*",
+        "securityhub:Get*",
+        "securityhub:List*",
+        "macie2:List*",
+        "detective:List*",
+        "cognito-idp:List*",
+        "cognito-identity:List*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Analytics",
+      "Effect": "Allow",
+      "Action": [
+        "athena:List*",
+        "athena:Get*",
+        "emr:List*",
+        "emr:Describe*",
+        "kinesis:List*",
+        "kinesis:Describe*",
+        "es:List*",
+        "es:Describe*",
+        "glue:Get*",
+        "glue:List*",
+        "firehose:List*",
+        "firehose:Describe*",
+        "quicksight:List*",
+        "quicksight:Describe*",
+        "kafka:List*",
+        "kafka:Describe*",
+        "lakeformation:List*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Integration",
+      "Effect": "Allow",
+      "Action": [
+        "sqs:List*",
+        "sqs:Get*",
+        "sns:List*",
+        "sns:Get*",
+        "events:List*",
+        "events:Describe*",
+        "states:List*",
+        "states:Describe*",
+        "mq:List*",
+        "mq:Describe*",
+        "appsync:List*",
+        "appsync:Get*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Management",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:Describe*",
         "cloudwatch:Get*",
         "cloudwatch:List*",
-        "budgets:View*",
-        "budgets:Describe*"
+        "logs:Describe*",
+        "logs:Get*",
+        "cloudtrail:Describe*",
+        "cloudtrail:Get*",
+        "cloudtrail:List*",
+        "config:Describe*",
+        "config:Get*",
+        "ssm:Describe*",
+        "ssm:List*",
+        "ssm:Get*",
+        "organizations:Describe*",
+        "organizations:List*",
+        "health:Describe*",
+        "support:Describe*",
+        "trustedadvisor:Describe*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Containers",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:Describe*",
+        "ecr:List*",
+        "ecr:Get*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AIML",
+      "Effect": "Allow",
+      "Action": [
+        "sagemaker:List*",
+        "sagemaker:Describe*",
+        "bedrock:List*",
+        "bedrock:Get*",
+        "comprehend:List*",
+        "rekognition:List*",
+        "polly:Describe*",
+        "transcribe:List*",
+        "translate:List*",
+        "lex:Get*",
+        "forecast:List*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "DeveloperTools",
+      "Effect": "Allow",
+      "Action": [
+        "codecommit:List*",
+        "codecommit:Get*",
+        "codebuild:List*",
+        "codebuild:BatchGet*",
+        "codepipeline:List*",
+        "codepipeline:Get*",
+        "codedeploy:List*",
+        "codedeploy:Get*",
+        "codeartifact:List*",
+        "codeartifact:Describe*",
+        "cloud9:Describe*",
+        "cloud9:List*",
+        "xray:Get*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "IoT",
+      "Effect": "Allow",
+      "Action": [
+        "iot:List*",
+        "iot:Describe*",
+        "iot:Get*",
+        "iotanalytics:List*",
+        "iotanalytics:Describe*",
+        "iotevents:List*",
+        "iotevents:Describe*",
+        "greengrass:List*",
+        "greengrass:Get*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Media",
+      "Effect": "Allow",
+      "Action": [
+        "mediaconvert:Describe*",
+        "mediaconvert:List*",
+        "medialive:Describe*",
+        "medialive:List*",
+        "mediapackage:Describe*",
+        "mediapackage:List*",
+        "ivs:List*",
+        "ivs:Get*",
+        "elastictranscoder:List*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Business",
+      "Effect": "Allow",
+      "Action": [
+        "workspaces:Describe*",
+        "workdocs:Describe*",
+        "chime:List*",
+        "connect:List*",
+        "connect:Describe*",
+        "ses:List*",
+        "ses:Get*",
+        "pinpoint:Get*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Migration",
+      "Effect": "Allow",
+      "Action": [
+        "dms:Describe*",
+        "datasync:List*",
+        "datasync:Describe*",
+        "transfer:List*",
+        "transfer:Describe*",
+        "snowball:List*",
+        "snowball:Describe*",
+        "mgn:Describe*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "Other",
+      "Effect": "Allow",
+      "Action": [
+        "sts:GetCallerIdentity",
+        "tag:GetResources",
+        "resource-groups:List*",
+        "servicecatalog:List*",
+        "license-manager:List*"
       ],
       "Resource": "*"
     }
