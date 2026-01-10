@@ -1,58 +1,43 @@
 # AWS Cost Auditor
 
-Outil web complet pour auditer les coûts et ressources de vos comptes AWS.
+A comprehensive web application to audit and optimize your AWS infrastructure costs. Analyze 200+ AWS services, identify unused resources, and get actionable recommendations to reduce your cloud spending.
 
-## Fonctionnalités
+## Features
 
-- **Audit complet** de tous les services AWS
-- **Dashboard** avec vue d'ensemble des coûts
-- **Détection automatique** des problèmes et recommandations
-- **Sélection flexible** des services à auditer
-- **Interface AWS Cloudscape** (thème AWS officiel)
-- **Déploiement serverless** (Lambda + S3)
-
-## Services AWS audités
-
-| Catégorie | Services |
-|-----------|----------|
-| **Compute** | EC2, Lambda, ECS, EKS, Lightsail, Batch, Elastic Beanstalk |
-| **Storage** | S3, EBS, EFS, FSx, Backup |
-| **Database** | RDS, DynamoDB, ElastiCache, Redshift, DocumentDB, Neptune |
-| **Network** | VPC, CloudFront, Route53, API Gateway, ELB, NAT Gateway |
-| **Security** | IAM, KMS, Secrets Manager, ACM, WAF, GuardDuty |
-| **Analytics** | Athena, EMR, Kinesis, OpenSearch, Glue |
-| **Integration** | SQS, SNS, EventBridge, Step Functions |
-| **Management** | CloudWatch, CloudTrail, Config, SSM, Organizations |
-| **Containers** | ECR |
-| **AI/ML** | SageMaker, Bedrock |
-| **Cost** | Cost Explorer, Budgets |
+- **Cost Analysis** - Deep dive into your AWS spending patterns and trends
+- **Resource Audit** - Identify unused, underutilized, or misconfigured resources
+- **Smart Recommendations** - Get actionable suggestions to reduce costs
+- **200+ AWS Services** - Comprehensive coverage across all AWS service categories
+- **Real-time Progress** - SSE streaming for live audit progress updates
+- **Multi-language** - English and French support
+- **Dark/Light Mode** - Toggle between themes
 
 ## Architecture
 
 ```
 aws-cost-auditor/
-├── backend/           # API Lambda (Node.js + TypeScript)
+├── backend/          # Node.js/Express API server
 │   ├── src/
-│   │   ├── services/  # Services d'audit par catégorie
-│   │   ├── types/     # Types TypeScript
-│   │   └── index.ts   # Handler Lambda
-│   └── tests/         # Tests Jest
+│   │   ├── services/ # AWS service auditors
+│   │   ├── types/    # TypeScript definitions
+│   │   └── index.ts  # Main entry point
+│   └── package.json
 │
-└── frontend/          # Angular 17 + Cloudscape
+└── frontend/         # Angular 17 application
     ├── src/
     │   ├── app/
-    │   │   ├── pages/      # Login, Dashboard, Audit, Results
-    │   │   ├── services/   # Service API
-    │   │   └── models/     # Types et constantes
+    │   │   ├── pages/      # Login, Dashboard, Audit, Results, Help
+    │   │   ├── services/   # AWS, Theme, i18n services
+    │   │   └── models/     # TypeScript models
     │   └── styles.scss
-    └── angular.json
+    └── package.json
 ```
 
-## Prérequis
+## Prerequisites
 
 - Node.js 18+
-- npm ou yarn
-- Compte AWS avec credentials IAM
+- npm or yarn
+- AWS credentials with read-only access
 
 ## Installation
 
@@ -70,149 +55,102 @@ cd frontend
 npm install
 ```
 
-## Développement local
+## Running the Application
 
-### Backend
+### Start Backend Server
 
 ```bash
 cd backend
 npm run dev
-# API disponible sur http://localhost:3000
 ```
 
-### Frontend
+The API server will start at `http://localhost:3000`
+
+### Start Frontend
 
 ```bash
 cd frontend
 npm start
-# Application disponible sur http://localhost:4200
 ```
 
-## Tests
+The application will be available at `http://localhost:4200`
 
-### Backend
+## AWS IAM Permissions
 
-```bash
-cd backend
-npm test                 # Lancer les tests
-npm run test:coverage    # Avec couverture
-```
-
-### Frontend
-
-```bash
-cd frontend
-npm test                 # Lancer les tests
-npm run test:ci          # Mode CI (headless)
-```
-
-## Déploiement AWS
-
-### 1. Backend (Lambda)
-
-```bash
-cd backend
-npm run build
-npm run package
-# Créer la fonction Lambda et uploader lambda.zip
-```
-
-### 2. API Gateway
-
-Créer une API REST avec les routes :
-- `GET /services` - Liste des services
-- `POST /validate` - Validation credentials
-- `POST /audit` - Lancer un audit
-- `POST /audit/{category}` - Audit par catégorie
-
-### 3. Frontend (S3 + CloudFront)
-
-```bash
-cd frontend
-npm run build:prod
-# Uploader dist/aws-cost-auditor vers S3
-# Configurer CloudFront pour la distribution
-```
-
-Mettre à jour `environment.prod.ts` avec l'URL de l'API Gateway.
-
-## Permissions IAM requises
-
-L'utilisateur doit avoir une policy avec ces permissions :
+Create an IAM user or role with read-only access. Here's a minimal policy:
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AWSCostAuditReadOnly",
-            "Effect": "Allow",
-            "Action": [
-                "ce:Get*", "ce:Describe*", "ce:List*",
-                "budgets:Describe*", "budgets:View*",
-                "ec2:Describe*",
-                "s3:List*", "s3:GetBucket*",
-                "rds:Describe*",
-                "lambda:List*", "lambda:Get*",
-                "iam:List*", "iam:Get*",
-                "cloudwatch:GetMetric*", "cloudwatch:List*", "cloudwatch:Describe*",
-                "logs:DescribeLogGroups",
-                "ecs:Describe*", "ecs:List*",
-                "eks:Describe*", "eks:List*",
-                "dynamodb:Describe*", "dynamodb:List*",
-                "elasticache:Describe*",
-                "sqs:List*", "sqs:GetQueueAttributes",
-                "sns:List*",
-                "kms:List*", "kms:Describe*",
-                "secretsmanager:List*",
-                "acm:List*", "acm:Describe*",
-                "cloudfront:List*", "cloudfront:GetDistribution",
-                "route53:List*",
-                "apigateway:GET",
-                "elasticloadbalancing:Describe*",
-                "cloudtrail:Describe*", "cloudtrail:GetTrailStatus",
-                "config:Describe*",
-                "guardduty:List*", "guardduty:Get*",
-                "wafv2:List*",
-                "ssm:Describe*", "ssm:List*",
-                "organizations:Describe*", "organizations:List*",
-                "ecr:Describe*", "ecr:List*", "ecr:GetLifecyclePolicy",
-                "sagemaker:List*",
-                "bedrock:List*",
-                "athena:List*",
-                "emr:List*",
-                "kinesis:List*", "kinesis:DescribeStreamSummary",
-                "es:List*", "es:Describe*",
-                "glue:Get*",
-                "events:List*",
-                "states:List*",
-                "backup:List*",
-                "efs:Describe*",
-                "fsx:Describe*",
-                "redshift:Describe*",
-                "neptune:Describe*",
-                "docdb:Describe*",
-                "batch:Describe*",
-                "lightsail:Get*",
-                "sts:GetCallerIdentity"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ce:*",
+        "budgets:View*",
+        "ec2:Describe*",
+        "s3:List*",
+        "s3:GetBucket*",
+        "rds:Describe*",
+        "lambda:List*",
+        "lambda:Get*",
+        "iam:List*",
+        "iam:Get*",
+        "cloudwatch:Get*",
+        "cloudwatch:List*"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
 ```
 
-## Sécurité
+For full coverage of all 200+ services, see the complete IAM policy in the Help page of the application.
 
-- Les credentials AWS sont transmis via headers HTTPS uniquement
-- Aucune donnée sensible n'est stockée côté serveur
-- Les credentials sont stockés en sessionStorage (effacés à la fermeture)
-- Permissions en lecture seule uniquement
+## API Endpoints
 
-## Licence
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/health` | Health check |
+| GET | `/services` | List available AWS services |
+| POST | `/validate` | Validate AWS credentials |
+| POST | `/audit/stream` | Run audit with SSE streaming |
+| POST | `/audit/:category` | Run audit for specific category |
 
-MIT
+## Supported AWS Service Categories
 
-## Auteur
+- **Cost Management** - Cost Explorer, Budgets, Savings Plans
+- **Compute** - EC2, Lambda, ECS, EKS, Lightsail, Batch
+- **Storage** - S3, EFS, FSx, Backup, Glacier
+- **Database** - RDS, DynamoDB, ElastiCache, Redshift, Neptune
+- **Network** - VPC, CloudFront, Route 53, API Gateway, ELB
+- **Security** - IAM, KMS, WAF, GuardDuty, Inspector, Macie
+- **Analytics** - Athena, EMR, Kinesis, Glue, OpenSearch
+- **Integration** - SQS, SNS, EventBridge, Step Functions
+- **Management** - CloudWatch, CloudTrail, Config, Systems Manager
+- **Containers** - ECR, ECS, EKS
+- **AI/ML** - SageMaker, Bedrock, Comprehend, Rekognition
+- **Developer Tools** - CodeCommit, CodeBuild, CodePipeline
+- **IoT** - IoT Core, IoT Analytics, IoT Events
+- **Media** - MediaConvert, MediaLive, IVS
+- **Business** - WorkSpaces, SES, Connect, Pinpoint
+- **Migration** - DMS, DataSync, Transfer Family
 
-AWS Cost Auditor - Audit complet des coûts AWS
+## Security
+
+- Credentials are stored only in memory and never persisted to disk
+- All API calls are made directly to AWS
+- No data is sent to third-party servers
+- Session data is cleared when you close the browser
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+MIT License
+
+## Author
+
+[GerardFevill](https://github.com/GerardFevill)
