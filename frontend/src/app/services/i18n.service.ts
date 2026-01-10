@@ -237,7 +237,13 @@ const TRANSLATIONS: Record<Language, Translations> = {
       'blockchain': 'Blockchain',
       'frontend-web': 'Front-end Web & Mobile',
       'end-user-computing': 'End User Computing',
-      'customer-engagement': 'Customer Engagement'
+      'customer-engagement': 'Customer Engagement',
+      'costexplorer': 'Cost Explorer',
+      'budgets': 'AWS Budgets',
+      'savingsplans': 'Savings Plans',
+      'reservedinstances': 'Reserved Instances',
+      'costandusagereports': 'Cost & Usage Reports',
+      'billingconductor': 'Billing Conductor'
     },
     login: {
       title: 'AWS Cost Auditor',
@@ -1727,7 +1733,13 @@ const TRANSLATIONS: Record<Language, Translations> = {
       'blockchain': 'Blockchain',
       'frontend-web': 'Web frontal et mobile',
       'end-user-computing': 'Informatique utilisateur',
-      'customer-engagement': 'Engagement client'
+      'customer-engagement': 'Engagement client',
+      'costexplorer': 'Explorateur de coûts',
+      'budgets': 'Budgets AWS',
+      'savingsplans': 'Plans d'économies',
+      'reservedinstances': 'Instances réservées',
+      'costandusagereports': 'Rapports de coûts',
+      'billingconductor': 'Conducteur de facturation'
     },
     login: {
       title: 'AWS Cost Auditor',
