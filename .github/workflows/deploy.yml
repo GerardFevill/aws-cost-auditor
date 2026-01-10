@@ -8,6 +8,7 @@ on:
 env:
   AWS_REGION: us-east-1
   LAMBDA_FUNCTION_NAME: aws-cost-auditor-api
+  LAMBDA_ROLE_NAME: aws-cost-auditor-lambda-role
 
 jobs:
   # Build and test
@@ -123,8 +124,99 @@ jobs:
         working-directory: ./backend
         run: zip -r ../lambda-package.zip dist/ node_modules/ package.json
 
-      - name: Deploy to Lambda
+      - name: Create IAM Role for Lambda (if not exists)
         run: |
-          aws lambda update-function-code \
-            --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
-            --zip-file fileb://lambda-package.zip
+          # Check if role exists
+          if ! aws iam get-role --role-name ${{ env.LAMBDA_ROLE_NAME }} 2>/dev/null; then
+            echo "Creating IAM role..."
+
+            # Create trust policy
+            cat > trust-policy.json << 'TRUSTPOLICY'
+          {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": "lambda.amazonaws.com"
+                },
+                "Action": "sts:AssumeRole"
+              }
+            ]
+          }
+          TRUSTPOLICY
+
+            # Create the role
+            aws iam create-role \
+              --role-name ${{ env.LAMBDA_ROLE_NAME }} \
+              --assume-role-policy-document file://trust-policy.json
+
+            # Attach basic Lambda execution policy
+            aws iam attach-role-policy \
+              --role-name ${{ env.LAMBDA_ROLE_NAME }} \
+              --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+            # Attach read-only access for AWS services (for auditing)
+            aws iam attach-role-policy \
+              --role-name ${{ env.LAMBDA_ROLE_NAME }} \
+              --policy-arn arn:aws:iam::aws:policy/ReadOnlyAccess
+
+            # Wait for role to propagate
+            echo "Waiting for IAM role to propagate..."
+            sleep 10
+          else
+            echo "IAM role already exists"
+          fi
+
+      - name: Create or Update Lambda Function
+        run: |
+          # Get the role ARN
+          ROLE_ARN=$(aws iam get-role --role-name ${{ env.LAMBDA_ROLE_NAME }} --query 'Role.Arn' --output text)
+
+          # Check if Lambda function exists
+          if aws lambda get-function --function-name ${{ env.LAMBDA_FUNCTION_NAME }} 2>/dev/null; then
+            echo "Updating existing Lambda function..."
+            aws lambda update-function-code \
+              --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+              --zip-file fileb://lambda-package.zip
+          else
+            echo "Creating new Lambda function..."
+            aws lambda create-function \
+              --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+              --runtime nodejs20.x \
+              --role $ROLE_ARN \
+              --handler dist/index.handler \
+              --zip-file fileb://lambda-package.zip \
+              --timeout 300 \
+              --memory-size 512
+
+            # Wait for function to be active
+            aws lambda wait function-active --function-name ${{ env.LAMBDA_FUNCTION_NAME }}
+
+            # Add function URL for HTTP access
+            echo "Creating function URL..."
+            aws lambda create-function-url-config \
+              --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+              --auth-type NONE \
+              --cors '{
+                "AllowOrigins": ["*"],
+                "AllowMethods": ["GET", "POST", "OPTIONS"],
+                "AllowHeaders": ["Content-Type", "Authorization", "X-AWS-Access-Key-Id", "X-AWS-Secret-Access-Key", "X-AWS-Session-Token", "X-AWS-Region"]
+              }'
+
+            # Add permission for public access
+            aws lambda add-permission \
+              --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+              --statement-id FunctionURLAllowPublicAccess \
+              --action lambda:InvokeFunctionUrl \
+              --principal "*" \
+              --function-url-auth-type NONE
+          fi
+
+      - name: Get Lambda Function URL
+        run: |
+          URL=$(aws lambda get-function-url-config --function-name ${{ env.LAMBDA_FUNCTION_NAME }} --query 'FunctionUrl' --output text 2>/dev/null || echo "")
+          if [ -n "$URL" ]; then
+            echo "Lambda Function URL: $URL"
+            echo "LAMBDA_URL=$URL" >> $GITHUB_ENV
+          fi
