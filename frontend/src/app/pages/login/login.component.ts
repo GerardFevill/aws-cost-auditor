@@ -5,7 +5,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AwsApiService } from '../../services/aws.service';
 import { ThemeService } from '../../services/theme.service';
 import { I18nService, Language } from '../../services/i18n.service';
@@ -14,7 +14,7 @@ import { AWSCredentials, AWS_REGIONS } from '../../models/aws.models';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   template: `
     <div class="login-container">
       <!-- Theme and Language controls -->
@@ -129,6 +129,10 @@ import { AWSCredentials, AWS_REGIONS } from '../../models/aws.models';
             <li>iam:List*, iam:Get* (IAM)</li>
             <li>{{ t('login.otherPermissions') }}</li>
           </ul>
+        </div>
+
+        <div class="help-link">
+          <a routerLink="/help">📖 {{ t('nav.help') }}</a>
         </div>
       </div>
     </div>
@@ -268,6 +272,26 @@ import { AWSCredentials, AWS_REGIONS } from '../../models/aws.models';
             color: var(--color-accent);
             margin-right: 8px;
           }
+        }
+      }
+    }
+
+    .help-link {
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--color-border);
+
+      a {
+        color: var(--color-accent);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.15s;
+
+        &:hover {
+          color: var(--color-accent-hover);
+          text-decoration: underline;
         }
       }
     }

@@ -2565,6 +2565,46 @@ const TRANSLATIONS: Record<Language, Translations> = {
       'connectcases': 'Connect Cases',
       'connectvoiceid': 'Connect Voice ID'
     },
+    help: {
+      title: "Guide d'aide",
+      subtitle: 'Apprenez à utiliser AWS Cost Auditor pour optimiser vos dépenses cloud',
+      backToLogin: 'Retour à la connexion',
+      gettingStarted: {
+        title: 'Premiers pas',
+        step1Title: '1. Connectez votre compte AWS',
+        step1Desc: "Entrez votre Access Key ID et Secret Access Key AWS. Nous recommandons d'utiliser des identifiants avec des permissions en lecture seule (politique ReadOnlyAccess).",
+        step2Title: '2. Sélectionnez les services à auditer',
+        step2Desc: 'Choisissez les services AWS que vous souhaitez analyser. Vous pouvez sélectionner tous les services ou certains selon vos besoins.',
+        step3Title: "3. Lancez l'audit",
+        step3Desc: "Cliquez sur Démarrer l'audit pour commencer l'analyse. L'outil analysera vos services sélectionnés et identifiera les optimisations potentielles.",
+        step4Title: '4. Examinez les résultats',
+        step4Desc: "Consultez les résultats sur le tableau de bord. Chaque problème inclut des recommandations et des estimations d'économies."
+      },
+      permissions: {
+        title: 'Permissions IAM requises',
+        intro: "Votre utilisateur ou rôle IAM a besoin d'un accès en lecture seule aux services que vous souhaitez auditer. Voici un exemple de politique IAM:",
+        warningTitle: 'Bonne pratique de sécurité',
+        warningDesc: "N'utilisez jamais les identifiants du compte root. Créez un utilisateur IAM dédié avec les permissions minimales requises pour l'audit."
+      },
+      features: {
+        title: 'Fonctionnalités clés',
+        costAnalysis: 'Analyse des coûts',
+        costAnalysisDesc: 'Analysez en profondeur vos tendances de dépenses AWS.',
+        resourceAudit: 'Audit des ressources',
+        resourceAuditDesc: 'Identifiez les ressources inutilisées, sous-utilisées ou mal configurées.',
+        recommendations: 'Recommandations intelligentes',
+        recommendationsDesc: 'Obtenez des suggestions concrètes pour réduire les coûts.',
+        reports: 'Rapports détaillés',
+        reportsDesc: 'Exportez les résultats et partagez-les avec votre équipe.'
+      },
+      security: {
+        title: 'Sécurité et confidentialité',
+        item1: 'Vos identifiants sont stockés uniquement en mémoire et jamais enregistrés sur le disque',
+        item2: 'Tous les appels API sont effectués directement vers AWS depuis votre navigateur',
+        item3: "Aucune donnée n'est envoyée à des serveurs tiers",
+        item4: 'Les données de session sont effacées lorsque vous fermez le navigateur'
+      }
+    },
     serviceDescriptions: {
       // Cost Management
       'cost-explorer': 'Analyser et visualiser vos coûts AWS',
