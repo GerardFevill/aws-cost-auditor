@@ -43,6 +43,11 @@ import { AuthState, CATEGORY_LABELS, CATEGORY_ICONS, ServiceCategory } from './m
             <span *ngIf="!isDark">🌙</span>
           </button>
 
+          <!-- Help Link -->
+          <a routerLink="/help" class="header-link" [title]="t('nav.help')">
+            📖 {{ t('nav.help') }}
+          </a>
+
           <span class="account-id" *ngIf="accountId">
             {{ t('common.account') }}: {{ accountId }}
           </span>
@@ -151,6 +156,24 @@ import { AuthState, CATEGORY_LABELS, CATEGORY_ICONS, ServiceCategory } from './m
 
       &:hover {
         background-color: var(--color-border);
+      }
+    }
+
+    .header-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 4px;
+      transition: all 0.15s;
+
+      &:hover {
+        color: var(--color-text-primary);
+        background-color: var(--color-bg-hover);
       }
     }
   `]
