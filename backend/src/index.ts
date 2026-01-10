@@ -8,12 +8,9 @@ import { STSClient, GetCallerIdentityCommand } from '@aws-sdk/client-sts';
 import { runAudit, AUDITOR_MAP } from './services';
 import { AWSCredentials, AWS_SERVICES, APIResponse } from './types';
 
-// Headers CORS
-const corsHeaders = {
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type,Authorization,X-AWS-Access-Key-Id,X-AWS-Secret-Access-Key,X-AWS-Session-Token,X-AWS-Region',
-  'Access-Control-Allow-Methods': 'GET,POST,OPTIONS'
+// Headers de réponse (CORS géré par Lambda Function URL)
+const responseHeaders = {
+  'Content-Type': 'application/json'
 };
 
 /**
@@ -22,7 +19,7 @@ const corsHeaders = {
 function createResponse(statusCode: number, body: APIResponse): APIGatewayProxyResult {
   return {
     statusCode,
-    headers: corsHeaders,
+    headers: responseHeaders,
     body: JSON.stringify(body)
   };
 }
