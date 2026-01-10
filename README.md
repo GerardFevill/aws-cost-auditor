@@ -136,6 +136,47 @@ For full coverage of all 200+ services, see the complete IAM policy in the Help 
 - **Business** - WorkSpaces, SES, Connect, Pinpoint
 - **Migration** - DMS, DataSync, Transfer Family
 
+## Deployment to AWS
+
+The project includes a GitHub Actions workflow for automatic deployment to AWS.
+
+### AWS Resources Required
+
+1. **S3 Bucket** - For hosting the frontend (static website)
+2. **CloudFront Distribution** - For CDN and HTTPS (optional but recommended)
+3. **Lambda Function** - For the backend API
+4. **API Gateway** - To expose the Lambda function
+
+### GitHub Secrets Configuration
+
+Add these secrets to your GitHub repository (Settings > Secrets > Actions):
+
+| Secret | Description |
+|--------|-------------|
+| `AWS_ACCESS_KEY_ID` | AWS access key for deployment |
+| `AWS_SECRET_ACCESS_KEY` | AWS secret key for deployment |
+| `S3_BUCKET_NAME` | S3 bucket name for frontend |
+| `CLOUDFRONT_DISTRIBUTION_ID` | CloudFront distribution ID (optional) |
+
+### Manual Deployment
+
+#### Frontend to S3
+
+```bash
+cd frontend
+npm run build -- --configuration=production
+aws s3 sync dist/frontend/browser s3://YOUR_BUCKET_NAME --delete
+```
+
+#### Backend to Lambda
+
+```bash
+cd backend
+npm run build
+zip -r lambda.zip dist/ node_modules/ package.json
+aws lambda update-function-code --function-name aws-cost-auditor-api --zip-file fileb://lambda.zip
+```
+
 ## Security
 
 - Credentials are stored only in memory and never persisted to disk
