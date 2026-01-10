@@ -175,7 +175,7 @@ import {
               [routerLink]="['/results', cat.id]"
             >
               <span class="category-icon">{{ cat.icon }}</span>
-              <span class="category-name">{{ cat.label }}</span>
+              <span class="category-name">{{ t('categories.' + cat.id) }}</span>
               <span class="category-status" [class.has-issues]="cat.issueCount > 0">
                 {{ cat.issueCount > 0 ? cat.issueCount + ' ' + t('dashboard.issues') : '✓' }}
               </span>
