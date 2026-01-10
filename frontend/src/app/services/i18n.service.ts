@@ -1074,6 +1074,10 @@ const TRANSLATIONS: Record<Language, Translations> = {
       subtitle: 'Learn how to use AWS Cost Auditor to optimize your cloud spending',
       backToLogin: 'Back to Login',
       backToDashboard: 'Back to Dashboard',
+      github: {
+        title: 'Source Code',
+        description: 'This project is open source. You can view the code, report issues, or contribute on GitHub.'
+      },
       gettingStarted: {
         title: 'Getting Started',
         step1Title: '1. Connect Your AWS Account',
@@ -2611,6 +2615,10 @@ const TRANSLATIONS: Record<Language, Translations> = {
       subtitle: 'Apprenez à utiliser AWS Cost Auditor pour optimiser vos dépenses cloud',
       backToLogin: 'Retour à la connexion',
       backToDashboard: 'Retour au tableau de bord',
+      github: {
+        title: 'Code Source',
+        description: "Ce projet est open source. Vous pouvez consulter le code, signaler des problèmes ou contribuer sur GitHub."
+      },
       gettingStarted: {
         title: 'Premiers pas',
         step1Title: '1. Connectez votre compte AWS',
