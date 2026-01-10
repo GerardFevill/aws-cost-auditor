@@ -1069,6 +1069,46 @@ const TRANSLATIONS: Record<Language, Translations> = {
       'connectcases': 'Connect Cases',
       'connectvoiceid': 'Connect Voice ID'
     },
+    help: {
+      title: 'Help Guide',
+      subtitle: 'Learn how to use AWS Cost Auditor to optimize your cloud spending',
+      backToLogin: 'Back to Login',
+      gettingStarted: {
+        title: 'Getting Started',
+        step1Title: '1. Connect Your AWS Account',
+        step1Desc: 'Enter your AWS Access Key ID and Secret Access Key. We recommend using credentials with read-only permissions (ReadOnlyAccess policy).',
+        step2Title: '2. Select Services to Audit',
+        step2Desc: 'Choose which AWS services you want to analyze. You can select all services or specific ones based on your needs.',
+        step3Title: '3. Run the Audit',
+        step3Desc: 'Click Start Audit to begin the analysis. The tool will scan your selected services and identify potential cost optimizations.',
+        step4Title: '4. Review Results',
+        step4Desc: 'Examine the findings on the dashboard. Each issue includes recommendations and potential savings estimates.'
+      },
+      permissions: {
+        title: 'Required IAM Permissions',
+        intro: 'Your IAM user or role needs read-only access to the services you want to audit. Here is a sample IAM policy:',
+        warningTitle: 'Security Best Practice',
+        warningDesc: 'Never use root account credentials. Create a dedicated IAM user with minimal required permissions for auditing.'
+      },
+      features: {
+        title: 'Key Features',
+        costAnalysis: 'Cost Analysis',
+        costAnalysisDesc: 'Deep dive into your AWS spending patterns and trends.',
+        resourceAudit: 'Resource Audit',
+        resourceAuditDesc: 'Identify unused, underutilized, or misconfigured resources.',
+        recommendations: 'Smart Recommendations',
+        recommendationsDesc: 'Get actionable suggestions to reduce costs.',
+        reports: 'Detailed Reports',
+        reportsDesc: 'Export findings and share with your team.'
+      },
+      security: {
+        title: 'Security & Privacy',
+        item1: 'Your credentials are stored only in memory and never persisted to disk',
+        item2: 'All API calls are made directly to AWS from your browser',
+        item3: 'No data is sent to third-party servers',
+        item4: 'Session data is cleared when you close the browser'
+      }
+    },
     serviceDescriptions: {
       // Cost Management
       'cost-explorer': 'Analyze and visualize your AWS costs',
