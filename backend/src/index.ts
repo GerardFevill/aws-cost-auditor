@@ -161,8 +161,66 @@ export const handler = async (
       });
     }
 
-    // Route: POST /audit/stream - Lancer un audit avec streaming SSE
-    // Note: Cette route est gérée par le local-server.ts pour le streaming
+    // Route: POST /audit/stream - Lancer un audit (sans SSE en Lambda)
+    // Note: Lambda ne supporte pas le streaming SSE, donc on retourne le résultat complet
+    if (path === '/audit/stream' && method === 'POST') {
+      const credentials = extractCredentials(event.headers as Record<string, string>);
+
+      if (!credentials) {
+        return createResponse(401, {
+          success: false,
+          error: 'Missing AWS credentials in headers',
+          timestamp: new Date().toISOString()
+        });
+      }
+
+      // Parse body
+      let body: { services?: string[]; regions?: string[] } = {};
+      if (event.body) {
+        try {
+          body = JSON.parse(event.body);
+        } catch {
+          return createResponse(400, {
+            success: false,
+            error: 'Invalid JSON body',
+            timestamp: new Date().toISOString()
+          });
+        }
+      }
+
+      // Services à auditer
+      const services = body.services || Object.keys(AUDITOR_MAP);
+      const regions = body.regions;
+
+      // Valider les credentials
+      const validation = await validateCredentials(credentials);
+      if (!validation.valid) {
+        return createResponse(401, {
+          success: false,
+          error: validation.error,
+          timestamp: new Date().toISOString()
+        });
+      }
+
+      // Lancer l'audit
+      console.log(`Starting stream audit for services: ${services.join(', ')}`);
+      const startTime = Date.now();
+
+      const results = await runAudit(credentials, services, regions);
+
+      const duration = Date.now() - startTime;
+      console.log(`Stream audit completed in ${duration}ms`);
+
+      return createResponse(200, {
+        success: true,
+        data: {
+          accountId: validation.accountId,
+          auditDuration: duration,
+          results
+        },
+        timestamp: new Date().toISOString()
+      });
+    }
 
     // Route: POST /audit - Lancer un audit
     if (path === '/audit' && method === 'POST') {
