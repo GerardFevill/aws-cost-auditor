@@ -1,6 +1,6 @@
 /**
  * AWS Cost Auditor - Lambda Handler
- * Point d'entrée pour AWS Lambda + API Gateway
+ * Point d'entrée pour AWS Lambda Function URL + API Gateway
  */
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
@@ -24,6 +24,25 @@ function createResponse(statusCode: number, body: APIResponse): APIGatewayProxyR
     statusCode,
     headers: corsHeaders,
     body: JSON.stringify(body)
+  };
+}
+
+/**
+ * Extrait le path et la méthode HTTP de l'événement
+ * Compatible avec API Gateway et Lambda Function URL
+ */
+function extractRequestInfo(event: any): { path: string; method: string } {
+  // Lambda Function URL format
+  if (event.requestContext?.http) {
+    return {
+      path: event.rawPath || event.requestContext.http.path || '/',
+      method: event.requestContext.http.method || 'GET'
+    };
+  }
+  // API Gateway format
+  return {
+    path: event.path || '/',
+    method: event.httpMethod || 'GET'
   };
 }
 
@@ -80,18 +99,25 @@ async function validateCredentials(credentials: AWSCredentials): Promise<{ valid
  * Handler principal Lambda
  */
 export const handler = async (
-  event: APIGatewayProxyEvent,
+  event: any,
   context: Context
 ): Promise<APIGatewayProxyResult> => {
-  console.log('Request:', JSON.stringify({ path: event.path, method: event.httpMethod }));
+  const { path, method } = extractRequestInfo(event);
+  console.log('Request:', JSON.stringify({ path, method }));
 
   // Handle CORS preflight
-  if (event.httpMethod === 'OPTIONS') {
+  if (method === 'OPTIONS') {
     return createResponse(200, { success: true, timestamp: new Date().toISOString() });
   }
 
-  const path = event.path;
-  const method = event.httpMethod;
+  // Health check - support both /health and root
+  if ((path === '/health' || path === '/') && method === 'GET') {
+    return createResponse(200, {
+      success: true,
+      data: { status: 'healthy', version: '1.0.0' },
+      timestamp: new Date().toISOString()
+    });
+  }
 
   try {
     // Route: GET /services - Liste des services disponibles

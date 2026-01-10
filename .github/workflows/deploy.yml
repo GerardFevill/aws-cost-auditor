@@ -72,8 +72,12 @@ jobs:
 
       - name: Deploy to S3
         run: |
-          aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} --delete --cache-control "max-age=31536000" --exclude "index.html"
-          aws s3 cp dist/index.html s3://${{ secrets.S3_BUCKET_NAME }}/index.html --cache-control "no-cache, no-store, must-revalidate"
+          aws s3 sync dist/ s3://sitewebtree/gerard-nouglozeh/apps/aws-cost-auditor-frontend/ --delete --cache-control "max-age=31536000" --exclude "index.html"
+          aws s3 cp dist/index.html s3://sitewebtree/gerard-nouglozeh/apps/aws-cost-auditor-frontend/index.html --cache-control "no-cache, no-store, must-revalidate"
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id EFN7C5SV4CGJT --paths "/apps/aws-cost-auditor-frontend/*"
 
   deploy-backend:
     needs: build
