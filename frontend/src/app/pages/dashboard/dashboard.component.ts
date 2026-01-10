@@ -197,12 +197,12 @@ import {
       h1 {
         font-size: 28px;
         font-weight: 700;
-        color: #fff;
+        color: var(--color-text-primary);
         margin-bottom: 8px;
       }
 
       p {
-        color: #8d99a8;
+        color: var(--color-text-muted);
       }
     }
 
@@ -212,19 +212,19 @@ import {
 
       .cost-label {
         font-size: 13px;
-        color: #8d99a8;
+        color: var(--color-text-muted);
         margin-bottom: 8px;
       }
 
       .cost-value {
         font-size: 28px;
         font-weight: 700;
-        color: #fff;
+        color: var(--color-text-primary);
       }
 
       .cost-currency {
         font-size: 14px;
-        color: #8d99a8;
+        color: var(--color-text-muted);
       }
     }
 
@@ -253,18 +253,18 @@ import {
 
       .service-name {
         font-size: 13px;
-        color: #d1d5db;
+        color: var(--color-text-secondary);
       }
 
       .service-cost {
         font-size: 13px;
         font-weight: 600;
-        color: #fff;
+        color: var(--color-text-primary);
       }
 
       .service-cost-bar {
         height: 8px;
-        background-color: #414d5c;
+        background-color: var(--color-border);
         border-radius: 4px;
         overflow: hidden;
 
@@ -300,7 +300,7 @@ import {
         position: absolute;
         top: -20px;
         font-size: 10px;
-        color: #8d99a8;
+        color: var(--color-text-muted);
         white-space: nowrap;
       }
 
@@ -308,7 +308,7 @@ import {
         position: absolute;
         bottom: -20px;
         font-size: 10px;
-        color: #8d99a8;
+        color: var(--color-text-muted);
       }
     }
 
@@ -323,7 +323,7 @@ import {
       align-items: center;
       gap: 12px;
       padding: 16px;
-      background-color: #232f3e;
+      background-color: var(--color-bg-tertiary);
       border-radius: 8px;
 
       .resource-icon {
@@ -338,23 +338,23 @@ import {
       .resource-value {
         font-size: 20px;
         font-weight: 700;
-        color: #fff;
+        color: var(--color-text-primary);
       }
 
       .resource-label {
         font-size: 12px;
-        color: #8d99a8;
+        color: var(--color-text-muted);
       }
     }
 
     .card-footer {
       margin-top: 16px;
       padding-top: 16px;
-      border-top: 1px solid #414d5c;
+      border-top: 1px solid var(--color-border);
       text-align: center;
 
       a {
-        color: #0972d3;
+        color: var(--color-accent);
         text-decoration: none;
 
         &:hover {
@@ -374,13 +374,13 @@ import {
       align-items: center;
       gap: 10px;
       padding: 12px;
-      background-color: #232f3e;
+      background-color: var(--color-bg-tertiary);
       border-radius: 8px;
       text-decoration: none;
       transition: all 0.15s;
 
       &:hover {
-        background-color: #2d3a4d;
+        background-color: var(--color-bg-hover);
         transform: translateY(-2px);
       }
 
@@ -391,17 +391,17 @@ import {
       .category-name {
         flex: 1;
         font-size: 13px;
-        color: #fff;
+        color: var(--color-text-primary);
         font-weight: 500;
       }
 
       .category-status {
         font-size: 11px;
-        color: #1d8102;
+        color: var(--color-success);
         font-weight: 600;
 
         &.has-issues {
-          color: #ff9900;
+          color: var(--color-warning);
         }
       }
     }

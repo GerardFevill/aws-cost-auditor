@@ -405,7 +405,7 @@ import {
         gap: 12px;
         font-size: 28px;
         font-weight: 700;
-        color: #fff;
+        color: var(--color-text-primary);
         margin-bottom: 8px;
 
         .category-icon {
@@ -414,7 +414,7 @@ import {
       }
 
       p {
-        color: #8d99a8;
+        color: var(--color-text-muted);
       }
     }
 
@@ -426,20 +426,20 @@ import {
 
     .issue-item {
       padding: 16px;
-      background-color: #232f3e;
+      background-color: var(--color-bg-tertiary);
       border-radius: 8px;
-      border-left: 4px solid #414d5c;
+      border-left: 4px solid var(--color-border);
 
       &.issue-critical, &.issue-high {
-        border-left-color: #d13212;
+        border-left-color: var(--color-danger);
       }
 
       &.issue-medium {
-        border-left-color: #ff9900;
+        border-left-color: var(--color-warning);
       }
 
       &.issue-low, &.issue-info {
-        border-left-color: #0972d3;
+        border-left-color: var(--color-accent);
       }
     }
 
@@ -452,35 +452,35 @@ import {
 
     .issue-type {
       font-weight: 600;
-      color: #fff;
+      color: var(--color-text-primary);
       font-size: 14px;
     }
 
     .issue-savings {
       margin-left: auto;
       font-weight: 600;
-      color: #1d8102;
+      color: var(--color-success);
     }
 
     .issue-message {
-      color: #d1d5db;
+      color: var(--color-text-secondary);
       margin-bottom: 8px;
     }
 
     .issue-recommendation {
       font-size: 13px;
-      color: #8d99a8;
+      color: var(--color-text-muted);
       margin-bottom: 8px;
     }
 
     .issue-resources {
       margin-top: 12px;
       padding-top: 12px;
-      border-top: 1px solid #414d5c;
+      border-top: 1px solid var(--color-border);
 
       .resources-label {
         font-size: 12px;
-        color: #8d99a8;
+        color: var(--color-text-muted);
         display: block;
         margin-bottom: 8px;
       }
@@ -492,21 +492,21 @@ import {
 
         code {
           padding: 4px 8px;
-          background-color: #0f1b2a;
+          background-color: var(--color-bg-primary);
           border-radius: 4px;
           font-size: 12px;
-          color: #44b9d6;
+          color: var(--color-info);
         }
       }
     }
 
     .json-view {
-      background-color: #0f1b2a;
+      background-color: var(--color-bg-primary);
       padding: 16px;
       border-radius: 8px;
       overflow-x: auto;
       font-size: 12px;
-      color: #d1d5db;
+      color: var(--color-text-secondary);
       max-height: 500px;
       overflow-y: auto;
     }
@@ -519,13 +519,13 @@ import {
       th {
         width: 200px;
         text-align: left;
-        background-color: #1a242f;
+        background-color: var(--color-bg-secondary);
         font-weight: 600;
       }
     }
 
     .nested-json {
-      background-color: #0f1b2a;
+      background-color: var(--color-bg-primary);
       padding: 8px;
       border-radius: 4px;
       font-size: 11px;
@@ -538,19 +538,19 @@ import {
       padding: 16px;
       font-size: 18px;
       font-weight: 600;
-      color: #fff;
+      color: var(--color-text-primary);
     }
 
     .empty-message {
       padding: 24px;
       text-align: center;
-      color: #8d99a8;
+      color: var(--color-text-muted);
       font-style: italic;
     }
 
     .raw-data-section {
       margin-top: 24px;
-      border: 1px dashed #414d5c;
+      border: 1px dashed var(--color-border);
     }
 
     .clickable {
@@ -558,27 +558,27 @@ import {
       user-select: none;
 
       &:hover {
-        background-color: #1a242f;
+        background-color: var(--color-bg-secondary);
       }
     }
 
     .toggle-icon {
       font-size: 12px;
       margin-right: 8px;
-      color: #8d99a8;
+      color: var(--color-text-muted);
     }
 
     .text-muted {
-      color: #8d99a8;
+      color: var(--color-text-muted);
       font-style: italic;
     }
 
     code {
       padding: 2px 6px;
-      background-color: #0f1b2a;
+      background-color: var(--color-bg-primary);
       border-radius: 4px;
       font-size: 12px;
-      color: #44b9d6;
+      color: var(--color-info);
     }
   `]
 })

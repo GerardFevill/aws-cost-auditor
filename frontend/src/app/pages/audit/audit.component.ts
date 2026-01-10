@@ -171,12 +171,12 @@ interface AuditStep {
       h1 {
         font-size: 28px;
         font-weight: 700;
-        color: #fff;
+        color: var(--color-text-primary);
         margin-bottom: 8px;
       }
 
       p {
-        color: #8d99a8;
+        color: var(--color-text-muted);
       }
     }
 
@@ -186,8 +186,8 @@ interface AuditStep {
       align-items: center;
       margin-bottom: 24px;
       padding: 16px 20px;
-      background-color: #1a242f;
-      border: 1px solid #414d5c;
+      background-color: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
       border-radius: 8px;
     }
 
@@ -203,8 +203,8 @@ interface AuditStep {
     }
 
     .category-card {
-      background-color: #1a242f;
-      border: 1px solid #414d5c;
+      background-color: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
       border-radius: 8px;
       overflow: hidden;
     }
@@ -214,8 +214,8 @@ interface AuditStep {
       align-items: center;
       gap: 12px;
       padding: 16px 20px;
-      background-color: #232f3e;
-      border-bottom: 1px solid #414d5c;
+      background-color: var(--color-bg-tertiary);
+      border-bottom: 1px solid var(--color-border);
     }
 
     .category-icon {
@@ -224,7 +224,7 @@ interface AuditStep {
 
     .category-name {
       font-weight: 600;
-      color: #fff;
+      color: var(--color-text-primary);
       flex: 1;
     }
 
@@ -233,7 +233,7 @@ interface AuditStep {
       align-items: center;
       gap: 6px;
       font-size: 12px;
-      color: #8d99a8;
+      color: var(--color-text-muted);
       cursor: pointer;
     }
 
@@ -251,11 +251,11 @@ interface AuditStep {
       transition: background-color 0.15s;
 
       &:hover {
-        background-color: #232f3e;
+        background-color: var(--color-bg-tertiary);
       }
 
       &.selected {
-        background-color: rgba(9, 114, 211, 0.15);
+        background-color: var(--color-accent-light);
       }
 
       input[type="checkbox"] {
@@ -271,13 +271,13 @@ interface AuditStep {
 
     .service-name {
       font-weight: 600;
-      color: #fff;
+      color: var(--color-text-primary);
       font-size: 14px;
     }
 
     .service-description {
       font-size: 12px;
-      color: #8d99a8;
+      color: var(--color-text-muted);
     }
 
     /* Modal */
@@ -295,8 +295,8 @@ interface AuditStep {
     }
 
     .modal-content {
-      background-color: #1a242f;
-      border: 1px solid #414d5c;
+      background-color: var(--color-bg-secondary);
+      border: 1px solid var(--color-border);
       border-radius: 12px;
       max-width: 400px;
       width: 90%;
@@ -304,12 +304,12 @@ interface AuditStep {
 
     .modal-header {
       padding: 20px;
-      border-bottom: 1px solid #414d5c;
+      border-bottom: 1px solid var(--color-border);
 
       h2 {
         font-size: 18px;
         font-weight: 600;
-        color: #fff;
+        color: var(--color-text-primary);
         margin: 0;
       }
     }
@@ -331,7 +331,7 @@ interface AuditStep {
     .btn-close {
       background: none;
       border: none;
-      color: #8d99a8;
+      color: var(--color-text-muted);
       font-size: 20px;
       cursor: pointer;
       padding: 4px 8px;
@@ -340,7 +340,7 @@ interface AuditStep {
 
       &:hover {
         background-color: rgba(255, 255, 255, 0.1);
-        color: #fff;
+        color: var(--color-text-primary);
       }
     }
 
@@ -358,24 +358,24 @@ interface AuditStep {
     .progress-percent {
       font-size: 24px;
       font-weight: 700;
-      color: #fff;
+      color: var(--color-text-primary);
     }
 
     .progress-label {
-      color: #8d99a8;
+      color: var(--color-text-muted);
       font-size: 14px;
     }
 
     .progress-bar-container {
       height: 8px;
-      background-color: #414d5c;
+      background-color: var(--color-border);
       border-radius: 4px;
       overflow: hidden;
     }
 
     .progress-bar-fill {
       height: 100%;
-      background-color: #0972d3;
+      background-color: var(--color-accent);
       border-radius: 4px;
       transition: width 0.3s ease;
     }
@@ -385,10 +385,10 @@ interface AuditStep {
       align-items: center;
       gap: 12px;
       padding: 16px;
-      background-color: rgba(9, 114, 211, 0.15);
+      background-color: var(--color-accent-light);
       border-radius: 8px;
       margin-bottom: 16px;
-      color: #fff;
+      color: var(--color-text-primary);
       font-size: 14px;
     }
 
@@ -398,7 +398,7 @@ interface AuditStep {
       gap: 8px;
       background: none;
       border: none;
-      color: #8d99a8;
+      color: var(--color-text-muted);
       font-size: 13px;
       cursor: pointer;
       padding: 8px 0;
@@ -406,7 +406,7 @@ interface AuditStep {
       text-align: left;
 
       &:hover {
-        color: #fff;
+        color: var(--color-text-primary);
       }
     }
 
@@ -417,7 +417,7 @@ interface AuditStep {
     .steps-list {
       margin-top: 12px;
       padding: 12px;
-      background-color: #232f3e;
+      background-color: var(--color-bg-tertiary);
       border-radius: 8px;
       max-height: 200px;
       overflow-y: auto;
@@ -427,20 +427,20 @@ interface AuditStep {
       }
 
       &::-webkit-scrollbar-track {
-        background: #1a242f;
+        background: var(--scrollbar-track);
       }
 
       &::-webkit-scrollbar-thumb {
-        background: #414d5c;
+        background: var(--scrollbar-thumb);
         border-radius: 3px;
 
         &:hover {
-          background: #5f6b7a;
+          background: var(--color-border-light);
         }
       }
 
       scrollbar-width: thin;
-      scrollbar-color: #414d5c #1a242f;
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
     }
 
     .step-item {
@@ -449,30 +449,30 @@ interface AuditStep {
       gap: 10px;
       padding: 8px 0;
       font-size: 13px;
-      color: #8d99a8;
-      border-bottom: 1px solid #414d5c;
+      color: var(--color-text-muted);
+      border-bottom: 1px solid var(--color-border);
 
       &:last-child {
         border-bottom: none;
       }
 
       &.completed {
-        color: #1d8102;
+        color: var(--color-success);
 
         .step-icon {
-          color: #1d8102;
+          color: var(--color-success);
         }
       }
 
       &.in-progress {
-        color: #0972d3;
+        color: var(--color-accent);
       }
 
       &.error {
-        color: #d13212;
+        color: var(--color-danger);
 
         .step-icon {
-          color: #d13212;
+          color: var(--color-danger);
         }
       }
     }
@@ -494,7 +494,7 @@ interface AuditStep {
 
     .step-details {
       font-size: 11px;
-      color: #d13212;
+      color: var(--color-danger);
     }
 
     .modal-actions {
