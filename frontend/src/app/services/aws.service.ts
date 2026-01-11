@@ -161,6 +161,7 @@ export class AwsApiService {
 
   /**
    * Lance un audit avec streaming SSE pour la progression en temps réel
+   * Supporte aussi les réponses JSON simples (pour Lambda)
    */
   runAuditWithProgress(
     config: AuditConfig | undefined,
@@ -187,6 +188,24 @@ export class AwsApiService {
         },
         body
       }).then(async response => {
+        const contentType = response.headers.get('content-type') || '';
+
+        // Si c'est du JSON (Lambda), traiter comme réponse complète
+        if (contentType.includes('application/json')) {
+          const jsonResponse = await response.json();
+          if (jsonResponse.success && jsonResponse.data) {
+            // Simuler la progression pour l'UI
+            onProgress('Audit', 'complete');
+            this.auditResults.next(jsonResponse.data);
+            observer.next(jsonResponse.data);
+            observer.complete();
+          } else {
+            observer.error(new Error(jsonResponse.error || 'Audit failed'));
+          }
+          return;
+        }
+
+        // Sinon, traiter comme SSE streaming
         const reader = response.body?.getReader();
         const decoder = new TextDecoder();
 
